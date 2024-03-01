@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
   });
 });
 
-// app.use("/api", routes);
+app.use("/api", routes);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
@@ -42,7 +42,7 @@ app.use((err, req, res, next) => {
 db.sequelize
   .sync()
   .then(() => {
-    logger.info("sync db..");
+    logger.info("sync and connect db..");
   })
   .catch((err) => {
     logger.error(`failed sync database, get error ${err}`);

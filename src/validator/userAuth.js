@@ -11,7 +11,9 @@ const daftarValidation = [
     .notEmpty()
     .isLength({
       min: 8,
-    }),
+    })
+    .isAlphanumeric()
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/),
 ];
 
 const masukValidation = [

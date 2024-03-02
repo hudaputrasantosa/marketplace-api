@@ -10,7 +10,7 @@ const authenticatedToken = (req, res, next) => {
       message: "Token required",
     });
 
-  jwt.verify(token, secretKey, (err, user) => {
+  jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
     if (err)
       return res.status(403).send({
         status: "Forbidden",

@@ -1,0 +1,2 @@
+{"level":"error","message":"failed sync database, get error SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306"}
+{"level":"error","message":"failed sync database, get error SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306"}

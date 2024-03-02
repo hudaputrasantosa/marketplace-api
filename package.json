@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node ./src/app.js",
         "dev": "nodemon ./src/app.js",
-        "test": "jest --watchAll"
+        "test": "jest --detectOpenHandles --watchAll"
     },
     "keywords": [
         "REST",

@@ -1,55 +1,19 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
 const db = require("./models");
 const logger = require("./utils/logger");
-const routes = require("./routes");
-const helmet = require("helmet");
-const app = express();
+const createServer = require("./utils/server");
 require("dotenv").config();
 
-let corsOption = {
-  origin: "http://localhost:8080",
-};
-
-app.use(helmet());
-app.use(cors(corsOption));
-app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
-
-app.get("/", (req, res) => {
-  res.status(200).json({
-    status: "Server Running..",
-  });
-});
-
-app.use("/api", routes);
-
-app.use((err, req, res, next) => {
-  const errorStatus = err.status || 500;
-  const errorMessage = err.message || "Something went Wrong!";
-  return res.status(errorStatus).send({
-    success: false,
-    status: errorStatus,
-    message: errorMessage,
-    stack: err.stack,
-  });
-});
+const app = createServer();
+const PORT = process.env.PORT || 8080;
 
 db.sequelize
   .sync()
   .then(() => {
     logger.info("sync and connect db..");
+    app.listen(PORT, () => {
+      console.log("server running.. http://localhost:8080/api/docs");
+    });
   })
   .catch((err) => {
     logger.error(`failed sync database, get error ${err}`);
   });
-
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log("server running.. http://localhost:8080/");
-});

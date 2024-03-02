@@ -1,0 +1,66 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Marketplace API",
+        "description": "Marketplace App Project Application API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "tags": [{
+            "name": "Auth",
+            "description": "Endpoint for book in the system"
+        },
+        {
+            "name": "Produk",
+            "description": "Endpoint for loan in the system"
+        },
+        {
+            "name": "Dompet",
+            "description": "Endpoint for member in the system"
+        },
+        {
+            "name": "Transaksi",
+            "description": "Endpoint for member in the system"
+        }
+    ],
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "security": [{ "Bearer": [] }],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "Enter your bearer token in the format **Bearer &lt;token>**"
+        }
+    },
+    "paths": {
+        "/auth/daftar": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Create User",
+                "parameters": [{
+                    "name": "book",
+                    "in": "body",
+                    "description": "",
+                    "example": {
+                        "email": "admin@gmail.com",
+                        "password": "admin123"
+                    }
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Success daftar"
+                    }
+                }
+            }
+        }
+    }
+}

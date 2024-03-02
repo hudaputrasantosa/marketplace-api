@@ -6,6 +6,7 @@ const logger = require("./utils/logger");
 const routes = require("./routes");
 const helmet = require("helmet");
 const app = express();
+require("dotenv").config();
 
 let corsOption = {
   origin: "http://localhost:8080",

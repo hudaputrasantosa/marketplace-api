@@ -1,5 +1,5 @@
 # REST API Marketplace
-![Logo](https://raw.githubusercontent.com/hudaputrasantosa/marketplace-api/main/public/diagram.png)
+![Logo](https://raw.githubusercontent.com/hudaputrasantosa/marketplace-api/master/diagram.png)
 
 ## ⚡ Deskripsi
 REST API Marketplace merupakan aplikasi backend yang menyediakan endpoint dengan tujuan untuk memberikan komunikasi kepada frontend developer untuk melakukan konsumsi API pada sisi klien sistem pengelolaan produk, dan transaksi pembelian produk oleh user.

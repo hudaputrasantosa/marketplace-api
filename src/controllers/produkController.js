@@ -4,13 +4,6 @@ const Produk = require("../models").Produk;
 
 const lihatProduks = async (req, res) => {
   try {
-    const { role } = req.user;
-    if (role !== "admin") {
-      res.status(409).json({
-        status: "Conflict",
-        message: "Role anda bukan Admin!",
-      });
-    }
     const produks = await Produk.findAndCountAll();
     produks.count <= 0
       ? res.status(200).json({
@@ -31,13 +24,6 @@ const lihatProduks = async (req, res) => {
 };
 const lihatProduk = async (req, res) => {
   try {
-    const { role } = req.user;
-    if (role !== "admin") {
-      res.status(409).json({
-        status: "Conflict",
-        message: "Role anda bukan Admin!",
-      });
-    }
     const produk = await Produk.findByPk(req.params.id);
     produk
       ? res.status(200).json({
@@ -59,16 +45,9 @@ const lihatProduk = async (req, res) => {
 
 const tambahProduk = async (req, res) => {
   try {
-    const { role } = req.user;
     const { nama, harga, deskripsi, jumlah } = req.body;
     const errors = validationResult(req);
 
-    if (role !== "admin") {
-      res.status(409).json({
-        status: "Conflict",
-        message: "Role anda bukan Admin!",
-      });
-    }
     if (!errors.isEmpty()) {
       return res.status(400).json({
         status: "Bad Request",
@@ -97,16 +76,8 @@ const tambahProduk = async (req, res) => {
 
 const ubahProduk = async (req, res) => {
   try {
-    const { role } = req.user;
     const { nama, harga, deskripsi, jumlah } = req.body;
     const errors = validationResult(req);
-
-    if (role !== "admin") {
-      res.status(409).json({
-        status: "Conflict",
-        message: "Role anda bukan Admin!",
-      });
-    }
 
     let produk = await Produk.findByPk(req.params.id);
     if (produk) {
@@ -143,20 +114,12 @@ const ubahProduk = async (req, res) => {
 };
 const hapusProduk = async (req, res) => {
   try {
-    const { role } = req.user;
-
-    if (role !== "admin") {
-      res.status(409).json({
-        status: "Conflict",
-        message: "Role anda bukan Admin!",
-      });
-    }
-    const produk = await Produk.destroy({
+    const deletedProduk = await Produk.destroy({
       where: {
         id: req.params.id,
       },
     });
-    produk
+    deletedProduk
       ? res.status(200).json({
           status: "OK",
           message: "Success menghapus data",

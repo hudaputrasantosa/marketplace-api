@@ -12,16 +12,24 @@ const {
   tambahProdukValidation,
   ubahProdukValidation,
 } = require("../validator/produkValidation");
+const { checkRoleAdmin } = require("../middleware/checkRole");
 
-router.get("/", authenticatedToken, lihatProduks);
-router.get("/:id", authenticatedToken, lihatProduk);
+router.get("/", authenticatedToken, checkRoleAdmin, lihatProduks);
+router.get("/:id", authenticatedToken, checkRoleAdmin, lihatProduk);
 router.post(
   "/tambah",
   authenticatedToken,
+  checkRoleAdmin,
   tambahProdukValidation,
   tambahProduk
 );
-router.post("/ubah/:id", authenticatedToken, ubahProduk);
-router.delete("/hapus/:id", authenticatedToken, hapusProduk);
+router.post(
+  "/ubah/:id",
+  authenticatedToken,
+  checkRoleAdmin,
+  ubahProdukValidation,
+  ubahProduk
+);
+router.delete("/hapus/:id", authenticatedToken, checkRoleAdmin, hapusProduk);
 
 module.exports = router;

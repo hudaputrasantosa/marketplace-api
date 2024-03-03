@@ -1,16 +1,11 @@
 const { validationResult } = require("express-validator");
+const { sequelize } = require("../models");
 
 const Dompet = require("../models").Dompet;
 
 const lihatDompet = async (req, res) => {
   try {
-    const { id, role } = req.user;
-    if (role !== "pembeli") {
-      res.status(409).json({
-        status: "Conflict",
-        message: "Role anda bukan Pembeli!",
-      });
-    }
+    const { id } = req.user;
     const dompet = await Dompet.findOne({
       where: {
         id_user: id,
@@ -37,16 +32,10 @@ const lihatDompet = async (req, res) => {
 
 const tambahDompet = async (req, res) => {
   try {
-    const { id, role } = req.user;
+    const { id } = req.user;
     const { no_ktp, saldo } = req.body;
     const errors = validationResult(req);
 
-    if (role !== "pembeli") {
-      res.status(409).json({
-        status: "Conflict",
-        message: "Role anda bukan Pembeli!",
-      });
-    }
     if (!errors.isEmpty()) {
       return res.status(400).json({
         status: "Bad Request",
@@ -85,17 +74,14 @@ const tambahDompet = async (req, res) => {
 
 const setorSaldo = async (req, res) => {
   try {
-    const { id, role } = req.user;
+    const { id } = req.user;
     const { saldo } = req.body;
     const errors = validationResult(req);
 
-    if (role !== "pembeli") {
-      res.status(409).json({
-        status: "Conflict",
-        message: "Role anda bukan Pembeli!",
-      });
-    }
-    const checkDompet = await Dompet.findOne({ where: { id_user: id } });
+    const checkDompet = await Dompet.findOne({
+      where: { id_user: id },
+      limit: 1,
+    });
     if (checkDompet) {
       if (!errors.isEmpty()) {
         return res.status(400).json({
@@ -103,12 +89,20 @@ const setorSaldo = async (req, res) => {
           errors: errors.array(),
         });
       }
-      await checkDompet.update({
-        saldo: (checkDompet.saldo += saldo),
+      await sequelize.transaction(async (t) => {
+        await checkDompet.update(
+          {
+            saldo: (checkDompet.saldo += saldo),
+          },
+          { lock: true, transaction: t }
+        );
       });
       res.status(200).json({
         status: "OK",
         message: `Berhasil menambah saldo sebesar ${saldo}`,
+        data: {
+          dompet: checkDompet,
+        },
       });
     } else {
       res.status(404).json({
@@ -117,6 +111,7 @@ const setorSaldo = async (req, res) => {
       });
     }
   } catch (error) {
+    sequelize.transaction().rollback();
     res.status(500).json({
       status: "Error",
       message: `Error at ${error}`,
@@ -126,18 +121,14 @@ const setorSaldo = async (req, res) => {
 
 const tarikSaldo = async (req, res) => {
   try {
-    const { id, role } = req.user;
+    const { id } = req.user;
     const { saldo } = req.body;
     const errors = validationResult(req);
 
-    if (role !== "pembeli") {
-      res.status(409).json({
-        status: "Conflict",
-        message: "Role anda bukan Pembeli!",
-      });
-    }
-
-    const checkDompet = await Dompet.findOne({ where: { id_user: id } });
+    const checkDompet = await Dompet.findOne({
+      where: { id_user: id },
+      limit: 1,
+    });
     if (checkDompet) {
       const checkSaldo = checkDompet.saldo >= saldo && saldo >= 5000;
       if (!errors.isEmpty()) {
@@ -147,12 +138,20 @@ const tarikSaldo = async (req, res) => {
         });
       }
       if (checkSaldo) {
-        await checkDompet.update({
-          saldo: (checkDompet.saldo -= saldo),
+        await sequelize.transaction(async (t) => {
+          await checkDompet.update(
+            {
+              saldo: (checkDompet.saldo -= saldo),
+            },
+            { lock: true, transaction: t }
+          );
         });
         res.status(200).json({
           status: "OK",
           message: `Berhasil tarik saldo sebesar ${saldo}`,
+          data: {
+            dompet: checkDompet,
+          },
         });
       } else {
         res.status(409).json({
@@ -168,6 +167,7 @@ const tarikSaldo = async (req, res) => {
       });
     }
   } catch (error) {
+    await sequelize.transaction().rollback();
     res.status(500).json({
       status: "Error",
       message: `Error at ${error}`,

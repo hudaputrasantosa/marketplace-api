@@ -15,7 +15,7 @@ module.exports = {
       },
       no_ktp: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       saldo: {
         type: Sequelize.INTEGER,

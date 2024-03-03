@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Dompet.init(
     {
       id_user: DataTypes.INTEGER,
-      no_ktp: DataTypes.INTEGER,
+      no_ktp: DataTypes.STRING,
       saldo: DataTypes.INTEGER,
     },
     {

@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const routes = require("../routes");
 const helmet = require("helmet");
+const limiter = require("./rateLimiter");
 const app = express();
 
 const createServer = () => {
@@ -12,6 +13,7 @@ const createServer = () => {
 
   app.use(helmet());
   app.use(cors(corsOption));
+  app.use(limiter);
   app.use(bodyParser.json());
   app.use(
     bodyParser.urlencoded({

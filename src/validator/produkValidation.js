@@ -14,9 +14,11 @@ const tambahProdukValidation = [
 ];
 const ubahProdukValidation = [
   body("harga", "Harga is numeric")
+    .optional()
     .isAlphanumeric()
     .matches(/^(?=.*[0-9]).*$/),
   body("jumlah", "jumlah is numeric")
+    .optional()
     .isAlphanumeric()
     .matches(/^(?=.*[0-9]).*$/),
 ];

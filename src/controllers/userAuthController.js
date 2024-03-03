@@ -77,7 +77,7 @@ const masuk = async (req, res) => {
       }
       const createToken = jwt.sign(
         {
-          email: checkEmail.email,
+          id: checkEmail.id,
           role: checkEmail.role,
         },
         process.env.SECRET_KEY,

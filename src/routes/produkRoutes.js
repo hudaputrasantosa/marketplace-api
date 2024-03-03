@@ -24,7 +24,7 @@ router.post(
   tambahProdukValidation,
   tambahProduk
 );
-router.post(
+router.put(
   "/ubah/:id",
   authenticatedToken,
   checkRoleAdmin,

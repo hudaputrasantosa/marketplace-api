@@ -13,7 +13,7 @@
     "basePath": "/api",
     "tags": [{
             "name": "Auth",
-            "description": "Endpoint for book in the system"
+            "description": "Endpoint for auth in the system"
         },
         {
             "name": "Produk",
@@ -31,11 +31,11 @@
     "schemes": ["http"],
     "consumes": ["application/json"],
     "produces": ["application/json"],
-    "security": [{ "Bearer": [] }],
+
     "securityDefinitions": {
-        "Bearer": {
+        "bearerAuth": {
             "type": "apiKey",
-            "name": "Authorization",
+            "name": "Authorization ",
             "in": "header",
             "description": "Enter your bearer token in the format **Bearer &lt;token>**"
         }
@@ -44,9 +44,32 @@
         "/auth/daftar": {
             "post": {
                 "tags": ["Auth"],
-                "summary": "Create User",
+                "summary": "daftar pengguna",
                 "parameters": [{
-                    "name": "book",
+                    "name": "user",
+                    "in": "body",
+                    "description": "",
+                    "example": {
+                        "nama": "john",
+                        "role": "pembeli/admin",
+                        "email": "john@gmail.com",
+                        "password": "john1234"
+                    }
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mendaftar"
+                    }
+                }
+            }
+        },
+        "/auth/masuk": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "masuk pengguna",
+                "parameters": [{
+                    "name": "user",
                     "in": "body",
                     "description": "",
                     "example": {
@@ -59,6 +82,304 @@
                     "200": {
                         "description": "Success daftar"
                     }
+                }
+            }
+        },
+        "/auth/keluar": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Create User",
+                "produces": ["application/json"],
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil keluar sistem"
+                    }
+                }
+            }
+        },
+        "/produks": {
+            "get": {
+                "tags": ["Produk"],
+                "summary": "lihat semua produk",
+                "produces": ["application/json"],
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mendapatkan data"
+                    }
+                }
+            }
+        },
+        "/produks/{id}": {
+            "get": {
+                "tags": ["Produk"],
+                "summary": "melihat produk",
+                "parameters": [{
+                    "name": "IdProduk",
+                    "in": "path",
+                    "description": "ID Produk"
+
+                }],
+                "produces": ["application/json"],
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mendapatkan data"
+                    }
+                }
+            }
+        },
+        "/produks/tambah": {
+            "post": {
+                "tags": ["Produk"],
+                "summary": "tambah data produk",
+                "parameters": [{
+                    "name": "produk",
+                    "in": "body",
+                    "description": "",
+                    "example": {
+                        "nama": "Mouse Gaming",
+                        "harga": 110000,
+                        "deskripsi": "Mouse Gaming dengan merek Alcatroz",
+                        "jumlah": 4
+                    }
+                }],
+                "produces": ["application/json"],
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil menambahkan produk"
+                    }
+                }
+            }
+        },
+        "/ubah/{id}": {
+            "post": {
+                "tags": ["Produk"],
+                "summary": "mengubah data produk",
+                "parameters": [{
+                    "name": "IdProduk",
+                    "in": "path",
+                    "description": "ID Produk"
+
+                }],
+                "produces": ["application/json"],
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mengubah data"
+                    }
+                }
+            }
+        },
+        "/produks/hapus/{id}": {
+            "delete": {
+                "tags": ["Produk"],
+                "summary": "menghapus data produk",
+                "parameters": [{
+                    "name": "IdProduk",
+                    "in": "path",
+                    "description": "ID Produk"
+
+                }],
+                "produces": ["application/json"],
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil menghapus produk"
+                    }
+                }
+            }
+        },
+        "/dompets/detail": {
+            "get": {
+                "security": [{ "bearerAuth": [] }],
+                "tags": ["Dompet"],
+                "summary": "lihat detail dompet pembeli",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mengambil data"
+                    }
+                }
+            }
+        },
+        "/dompets/tambah": {
+            "post": {
+                "security": [{ "bearerAuth": [] }],
+                "tags": ["Dompet"],
+                "summary": "lihat detail dompet pembeli",
+                "produces": ["application/json"],
+                "parameters": [{
+                    "name": "produk",
+                    "in": "body",
+                    "description": "",
+                    "schema": {
+                        "$ref": "#/definitions/Dompet"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil membuat dompet"
+                    }
+                }
+            }
+        },
+        "/dompets/setor-saldo": {
+            "post": {
+                "security": [{ "bearerAuth": [] }],
+                "tags": ["Dompet"],
+                "summary": "setor saldo pembeli",
+                "produces": ["application/json"],
+                "parameters": [{
+                    "name": "dompet",
+                    "in": "body",
+                    "description": "",
+                    "example": {
+                        "saldo": 10000
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil setor saldo"
+                    }
+                }
+            }
+        },
+        "/dompets/tarik-saldo": {
+            "post": {
+                "security": [{ "bearerAuth": [] }],
+                "tags": ["Dompet"],
+                "summary": "tarik saldo pembeli",
+                "produces": ["application/json"],
+                "parameters": [{
+                    "name": "dompet",
+                    "in": "body",
+                    "description": "",
+                    "example": {
+                        "saldo": 10000
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mmenarik saldo"
+                    }
+                }
+            }
+        },
+        "/transaksi/riwayat": {
+            "get": {
+                "security": [{ "bearerAuth": [] }],
+                "tags": ["Transaksi"],
+                "summary": "lihat riwayat transaksi pembeli",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mengambil data"
+                    }
+                }
+            }
+        },
+        "/transaksi/buat-transaksi": {
+            "post": {
+                "security": [{ "bearerAuth": [] }],
+                "tags": ["Transaksi"],
+                "summary": "membuat transaksi pembelian",
+                "produces": ["application/json"],
+                "parameters": [{
+                    "name": "Transaksi",
+                    "in": "body",
+                    "description": "",
+                    "example": {
+                        "id_produk": 1,
+                        "kuantitas": 2
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil membuat transaksi"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "properties": {
+                "nama": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "Produk": {
+            "type": "object",
+            "properties": {
+                "nama": {
+                    "type": "string"
+                },
+                "harga": {
+                    "type": "integer",
+                    "format": "int32"
+
+                },
+                "deskripsi": {
+                    "type": "string"
+                },
+                "jumlah": {
+                    "type": "integer",
+                    "format": "int32"
+
+                }
+            }
+        },
+        "Dompet": {
+            "type": "object",
+            "properties": {
+                "id_user": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "no_ktp": {
+                    "type": "string"
+                },
+                "saldo": {
+                    "type": "integer",
+                    "format": "int32"
+
+                }
+            }
+        },
+        "Transaksi": {
+            "type": "object",
+            "properties": {
+                "id_user": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "id_produk": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "kuantitas": {
+                    "type": "integer",
+                    "format": "int32"
+
+                },
+                "saldo": {
+                    "type": "integer",
+                    "format": "int32"
+
                 }
             }
         }

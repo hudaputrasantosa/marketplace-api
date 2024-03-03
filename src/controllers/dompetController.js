@@ -3,6 +3,7 @@ const { sequelize } = require("../models");
 
 const Dompet = require("../models").Dompet;
 
+// fungsi untuk melihat detail dompet sesuai dengan user (token)
 const lihatDompet = async (req, res) => {
   try {
     const { id } = req.user;
@@ -30,6 +31,7 @@ const lihatDompet = async (req, res) => {
   }
 };
 
+//fungsi untuk membuat dompet pembeli
 const tambahDompet = async (req, res) => {
   try {
     const { id } = req.user;
@@ -72,6 +74,7 @@ const tambahDompet = async (req, res) => {
   }
 };
 
+//fungsi untuk pembeli dapat menambah/setor saldo pada dompet
 const setorSaldo = async (req, res) => {
   try {
     const { id } = req.user;
@@ -118,7 +121,7 @@ const setorSaldo = async (req, res) => {
     });
   }
 };
-
+// fungsi untuk menarik saldo pembeli dari dompet
 const tarikSaldo = async (req, res) => {
   try {
     const { id } = req.user;

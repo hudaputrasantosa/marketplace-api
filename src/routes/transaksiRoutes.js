@@ -8,6 +8,7 @@ const {
 } = require("../controllers/transaksiController");
 const { buatTransaksiValidation } = require("../validator/transaksiValidation");
 
+// rute berbasis path transaksi khusus role pembeli
 router.get("/riwayat", authenticatedToken, checkRolePembeli, riwayatTransaksi);
 router.post(
   "/buat-transaksi",

@@ -1,3 +1,4 @@
+// middleware untuk pengecekan role admin pada endpoint yang terproteksi auth
 const checkRoleAdmin = (req, res, next) => {
   const { role } = req.user;
   if (role !== "admin") {
@@ -9,6 +10,7 @@ const checkRoleAdmin = (req, res, next) => {
   next();
 };
 
+// middleware untuk pengecekan role pembeli pada endpoint yang terproteksi auth
 const checkRolePembeli = (req, res, next) => {
   const { role } = req.user;
   if (role !== "pembeli") {

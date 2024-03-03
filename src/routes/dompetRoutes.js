@@ -13,6 +13,7 @@ const authenticatedToken = require("../middleware/authenticatedToken");
 const { checkRolePembeli } = require("../middleware/checkRole");
 const router = express.Router();
 
+// rute berbasis path dompet khusus role pembeli
 router.get("/detail", authenticatedToken, checkRolePembeli, lihatDompet);
 router.post(
   "/tambah",

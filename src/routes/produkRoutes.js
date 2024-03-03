@@ -14,6 +14,7 @@ const {
 } = require("../validator/produkValidation");
 const { checkRoleAdmin } = require("../middleware/checkRole");
 
+// rute berbasis path produk khusus role admin
 router.get("/", authenticatedToken, checkRoleAdmin, lihatProduks);
 router.get("/:id", authenticatedToken, checkRoleAdmin, lihatProduk);
 router.post(

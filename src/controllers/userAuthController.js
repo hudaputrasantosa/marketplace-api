@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
 
 const User = require("../models").User;
-
+//fungsi untuk mendaftarkan akun sistem
 const daftar = async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -51,6 +51,8 @@ const daftar = async (req, res) => {
     });
   }
 };
+
+//fungsi untuk masuk ke sistem berdasarkan role yang dipilih
 const masuk = async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -115,6 +117,7 @@ const masuk = async (req, res) => {
   }
 };
 
+// fungsi untuk keluar pada sistem
 const keluar = async (req, res) => {
   try {
     const authHeader = req.user["authorization"];

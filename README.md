@@ -6,6 +6,7 @@ REST API Marketplace merupakan aplikasi backend yang menyediakan endpoint dengan
 
 ## ✨ Entitas 
 - User ['admin', 'pembeli']
+- Produk
 - Transaksi
 - Dompet
 

@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 
 const Produk = require("../models").Produk;
 
+//fungsi untuk melihat semua produk yang tersedia
 const lihatProduks = async (req, res) => {
   try {
     const produks = await Produk.findAndCountAll();
@@ -22,6 +23,8 @@ const lihatProduks = async (req, res) => {
     });
   }
 };
+
+//fungsi untuk melihat 1 detail produk yang di pilih melalui parameter
 const lihatProduk = async (req, res) => {
   try {
     const produk = await Produk.findByPk(req.params.id);
@@ -42,7 +45,7 @@ const lihatProduk = async (req, res) => {
     });
   }
 };
-
+//fungsi untuk menambahkan produk oleh admin
 const tambahProduk = async (req, res) => {
   try {
     const { nama, harga, deskripsi, jumlah } = req.body;
@@ -73,7 +76,7 @@ const tambahProduk = async (req, res) => {
     });
   }
 };
-
+//fungsi untuk mengubah data pada produk
 const ubahProduk = async (req, res) => {
   try {
     const { nama, harga, deskripsi, jumlah } = req.body;
@@ -112,6 +115,8 @@ const ubahProduk = async (req, res) => {
     });
   }
 };
+
+//fungsi untuk menghapus data produk yang dipilih
 const hapusProduk = async (req, res) => {
   try {
     const deletedProduk = await Produk.destroy({

@@ -5,7 +5,7 @@ const { sequelize } = require("../models");
 const Dompet = require("../models").Dompet;
 const Produk = require("../models").Produk;
 const Transaksi = require("../models").Transaksi;
-
+//fungsi untuk melihat riwayat transaksi pada pembeli (by token)
 const riwayatTransaksi = async (req, res) => {
   try {
     const { id } = req.user;
@@ -32,6 +32,7 @@ const riwayatTransaksi = async (req, res) => {
   }
 };
 
+//fungsi terjadinya/membuat transaksi pada pembelian produk oleh pembeli
 const buatTransaksi = async (req, res) => {
   try {
     const { id_produk, kuantitas } = req.body;

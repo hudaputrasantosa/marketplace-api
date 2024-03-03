@@ -7,11 +7,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      Dompet.hasOne(models.Transaksi, {
-        foreignKey: "id_produk",
-      });
-    }
+    static associate(models) {}
   }
   Dompet.init(
     {

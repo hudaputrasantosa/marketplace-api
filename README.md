@@ -14,6 +14,7 @@ REST API Marketplace merupakan aplikasi backend yang menyediakan endpoint dengan
 ## ✨ Endpoints
 ![Logo](https://raw.githubusercontent.com/hudaputrasantosa/marketplace-api/master/document-api.png)
 Base URL : http://localhost:8080/api/
+URL Swagger Docs : http://localhost:8080/api/docs
 
 | Method   | Url/Endpoint   | Action   |
 | ------------- | ------------- | -------- |

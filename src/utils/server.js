@@ -4,35 +4,27 @@ const bodyParser = require("body-parser");
 const routes = require("../routes");
 const helmet = require("helmet");
 const limiter = require("./rateLimiter");
+const errorMiddleware = require("../middleware/errorMiddleware");
 const app = express();
 
 const createServer = () => {
-  let corsOption = {
-    origin: "http://localhost:8080",
-  };
+    let corsOption = {
+        origin: "http://localhost:8080",
+    };
 
-  app.use(helmet());
-  app.use(cors(corsOption));
-  app.use(limiter);
-  app.use(bodyParser.json());
-  app.use(
-    bodyParser.urlencoded({
-      extended: true,
-    })
-  );
-  app.use("/api", routes);
-  app.use((err, req, res, next) => {
-    const errorStatus = err.status || 500;
-    const errorMessage = err.message || "Something went Wrong!";
-    return res.status(errorStatus).send({
-      success: false,
-      status: errorStatus,
-      message: errorMessage,
-      stack: err.stack,
-    });
-  });
+    app.use(helmet());
+    app.use(cors(corsOption));
+    app.use(limiter);
+    app.use(bodyParser.json());
+    app.use(
+        bodyParser.urlencoded({
+            extended: true,
+        })
+    );
+    app.use("/api", routes);
+    app.use(errorMiddleware);
 
-  return app;
+    return app;
 };
 
 module.exports = createServer;

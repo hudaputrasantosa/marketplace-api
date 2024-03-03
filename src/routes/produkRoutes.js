@@ -2,15 +2,15 @@ const express = require("express");
 const router = express.Router();
 const authenticatedToken = require("../middleware/authenticatedToken");
 const {
-  lihatProduk,
-  tambahProduk,
-  ubahProduk,
-  hapusProduk,
-  lihatProduks,
+    lihatProduk,
+    tambahProduk,
+    ubahProduk,
+    hapusProduk,
+    lihatProduks,
 } = require("../controllers/produkController");
 const {
-  tambahProdukValidation,
-  ubahProdukValidation,
+    tambahProdukValidation,
+    ubahProdukValidation,
 } = require("../validator/produkValidation");
 const { checkRoleAdmin } = require("../middleware/checkRole");
 
@@ -18,18 +18,18 @@ const { checkRoleAdmin } = require("../middleware/checkRole");
 router.get("/", authenticatedToken, checkRoleAdmin, lihatProduks);
 router.get("/:id", authenticatedToken, checkRoleAdmin, lihatProduk);
 router.post(
-  "/tambah",
-  authenticatedToken,
-  checkRoleAdmin,
-  tambahProdukValidation,
-  tambahProduk
+    "/tambah",
+    authenticatedToken,
+    checkRoleAdmin,
+    tambahProdukValidation,
+    tambahProduk
 );
 router.put(
-  "/ubah/:id",
-  authenticatedToken,
-  checkRoleAdmin,
-  ubahProdukValidation,
-  ubahProduk
+    "/ubah/:id",
+    authenticatedToken,
+    checkRoleAdmin,
+    ubahProdukValidation,
+    ubahProduk
 );
 router.delete("/hapus/:id", authenticatedToken, checkRoleAdmin, hapusProduk);
 

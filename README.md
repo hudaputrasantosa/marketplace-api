@@ -38,6 +38,7 @@ URL Swagger Docs : http://localhost:8080/api/docs
  - NodeJS v16.16
  - NPM v8.11
  - DBMS MySQL
+ - DBMS Client (Laragon, XAMPP)
  - Express
  - Sequelize ORM
  - Jest
@@ -56,15 +57,7 @@ Installation from NPM
 ```bash
 npm install
 ```
-Create migration table
-```bash
-npx sequelize-cli db:migrate
-```
-Seeders data
-```bash
-npx sequelize-cli db:seed:all
-```
-Running server
+Running server and automation migration database from sync model
 ```bash
 npm run dev
 ```

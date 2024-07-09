@@ -67,7 +67,6 @@ npm install
 ```
 
 Running server and automation migration database from sync model
-
 ```bash
 npm run dev
 ```

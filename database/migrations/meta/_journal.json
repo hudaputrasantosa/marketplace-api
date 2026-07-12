@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1783800708252,
+      "tag": "0000_dazzling_rachel_grey",
+      "breakpoints": true
+    }
+  ]
+}

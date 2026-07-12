@@ -1,8 +1,9 @@
 # REST API Marketplace
+
 ![Logo](https://raw.githubusercontent.com/hudaputrasantosa/marketplace-api/master/diagram.png)
 
-
 ## ⚡ Deskripsi
+
 REST API Marketplace merupakan aplikasi backend yang menyediakan endpoint dengan tujuan untuk memberikan komunikasi kepada frontend developer untuk melakukan konsumsi API pada sisi klien sistem pengelolaan produk, dan transaksi pembelian produk oleh user.
 
 ## ✨ Entitas
@@ -12,6 +13,7 @@ REST API Marketplace merupakan aplikasi backend yang menyediakan endpoint dengan
 - Dompet
 
 ## ✨ Endpoints
+
 ![Logo](https://raw.githubusercontent.com/hudaputrasantosa/marketplace-api/master/document-api.png)
 Base URL : http://localhost:8080/api/
 URL Docs (Scalar) : http://localhost:8080/api/docs
